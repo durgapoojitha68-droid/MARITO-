@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>For MAHI ❤️</title>
+
   <style>
     body {
       margin: 0;
@@ -27,19 +28,30 @@
 
     h1 {
       color: #ff4d6d;
-      margin-bottom: 15px;
     }
 
     #message {
       font-size: 18px;
       color: #444;
-      min-height: 80px;
-      transition: all 0.5s ease;
+      min-height: 70px;
+      margin-bottom: 10px;
     }
 
+    button {
+      margin-top: 15px;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* ❤️ Floating hearts */
     .heart {
       position: absolute;
-      font-size: 20px;
+      color: #ff4d6d;
       animation: float 5s linear infinite;
     }
 
@@ -47,58 +59,95 @@
       0% { transform: translateY(100vh); opacity: 1; }
       100% { transform: translateY(-10vh); opacity: 0; }
     }
+
+    /* 🧸 Teddy */
+    .teddy {
+      font-size: 70px;
+      animation: bounce 2s infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* 🎶 Telugu lyrics */
+    .lyrics {
+      position: absolute;
+      bottom: -100%;
+      width: 100%;
+      text-align: center;
+      font-size: 22px;
+      color: white;
+      animation: scrollLyrics 18s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes scrollLyrics {
+      0% { bottom: -100%; opacity: 0; }
+      10% { opacity: 1; }
+      100% { bottom: 100%; opacity: 0; }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- 🎵 Music -->
-  <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/03/02/audio_0d87c0a7c3.mp3" type="audio/mpeg">
-  </audio>
-
   <div class="card">
-    <h1>MAHI ❤️</h1>
-    <p id="message">I made this just for you…</p>
+    <div class="teddy">🧸❤️</div>
+    <h1>Hey MAHI ❤️</h1>
+    <p id="message">I made this only for you 😌</p>
+    <button onclick="nextMessage()">Click me 😌</button>
   </div>
+
+  <!-- 🎶 Telugu Lyrics -->
+  <div class="lyrics">
+    Nari nari naduma murari ❤️<br>
+    Nee valle naa gundelona prema sari 🎶<br>
+    Naa hrudayam antha nee pere 💕<br>
+    MAHI… forever mine 😌
+  </div>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgm" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9c4c9c9c1c.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     const messages = [
-      "You make my heart smile every single day 💕",
-      "Even with the distance, you’re always closest to me 🌍❤️",
-      "You’re annoying sometimes 😌 but still my favorite human 😂",
-      "You’re my favorite notification, always 📱💖",
-      "With you, I feel safe, happy, and loved 🥹🤍",
-      "I don’t want just moments with you… I want forever 🤝💞",
-      "So here’s my one serious question… 👀💓",
-      "MAHI, WILL YOU BE MINE FOREVER? 💍✨",
+      "Long distance but zero emotional distance 😏",
+      "You tease me… I still choose you daily 😂❤️",
+      "MAHI, you’re my comfort place 🌍",
+      "One day this distance will disappear 💕",
+      "So listen carefully 👀💍",
       "I LOVE YOU MAHI ❤️"
     ];
 
     let index = 0;
-    const messageEl = document.getElementById("message");
-    const music = document.getElementById("bgMusic");
+    let musicPlayed = false;
 
-    // Start music on first interaction
-    document.body.addEventListener("click", () => {
-      music.play();
-    }, { once: true });
+    function nextMessage() {
+      if (!musicPlayed) {
+        document.getElementById("bgm").play();
+        musicPlayed = true;
+      }
 
-    // Auto change lyrics
-    setInterval(() => {
-      messageEl.innerText = messages[index];
+      document.getElementById("message").innerText = messages[index];
       index = (index + 1) % messages.length;
-    }, 2500);
+    }
 
-    // Hearts
-    setInterval(() => {
+    function createHeart() {
       const heart = document.createElement("div");
-      heart.className = "heart";
+      heart.classList.add("heart");
       heart.innerText = "❤️";
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.fontSize = Math.random() * 20 + 15 + "px";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
-    }, 300);
+    }
+
+    setInterval(createHeart, 300);
   </script>
 
 </body>
